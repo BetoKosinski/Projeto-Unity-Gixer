@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using UnityEditor;
 
 public static class SaveSystem
 
@@ -8,8 +9,8 @@ public static class SaveSystem
     public static void SaveTerrain (PlayerTerrain playerterrain)
     {
         BinaryFormatter formatter = new BinaryFormatter();
-        //string path = "C:/System/" pra salvar em alguma pasta específica do PC
-        string path = Application.persistentDataPath + "/terrain.bin";
+        string path = EditorUtility.OpenFolderPanel("Selecionar pasta", "", "");
+        //string path = Application.persistentDataPath + "/terrain.bin";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         Terrain_Data data = new Terrain_Data(playerterrain);
@@ -20,8 +21,8 @@ public static class SaveSystem
 
     public static Terrain_Data LoadTerrain()
     {
-        //string path = "C:/System/" pra salvar em alguma pasta específica do PC
-        string path = Application.persistentDataPath + "/terrain.bin";
+        string path = EditorUtility.OpenFolderPanel("Carregar pasta", "", "");
+        //string path = Application.persistentDataPath + "/terrain.bin";
         if (File.Exists(path))
         {
             BinaryFormatter formatter = new BinaryFormatter();

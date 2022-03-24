@@ -5,13 +5,19 @@ using UnityEngine;
 [System.Serializable]
 public class Terrain_Data
 {
-    public float[] position;
+    public int xRes;
+    public int yRes;
+    public float[,] newsave;
+    public TerrainData tData;
 
     public Terrain_Data(PlayerTerrain playerterrain)
     {
-        position = new float[3];
-        position[0] = playerterrain.transform.position.x;
-        position[1] = playerterrain.transform.position.y;
-        position[2] = playerterrain.transform.position.z;
+        //remover o modo apenas leitura da pasta do windows
+
+        xRes = playerterrain.xRes;
+        yRes = playerterrain.yRes;
+        tData = playerterrain.tData;
+        newsave = playerterrain.newsave;
+
     }
 }

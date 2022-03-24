@@ -30,13 +30,13 @@ public class PlayerTerrain : MonoBehaviour
     private RaycastHit hit;
 
     //Deformation variables
-    private int xRes;
-    private int yRes;
-    private float[,] saved;
-    private float[,] newsave;
+    public int xRes;
+    public int yRes;
+    public float[,] saved;
+    public float[,] newsave;
     Color[] craterData;
 
-    TerrainData tData;
+    public TerrainData tData;
 
     float strengthNormalized
     {
@@ -307,6 +307,7 @@ public class PlayerTerrain : MonoBehaviour
 
     public void SaveTerrain()
     {
+
         xRes = tData.heightmapResolution;
         yRes = tData.heightmapResolution;
         newsave = tData.GetHeights(0, 0, xRes, yRes);
@@ -316,15 +317,17 @@ public class PlayerTerrain : MonoBehaviour
 
     public void LoadTerrain()
     {
-        tData.SetHeights(0, 0, newsave);
-
+        if (newsave != null)
+        {
+            tData.SetHeights(0, 0, newsave);
+        }
+        
         Terrain_Data data = SaveSystem.LoadTerrain();
 
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-        transform.position = position;
+        xRes = data.xRes;
+        yRes = data.yRes;
+        tData = data.tData;
+        newsave = data.newsave;
 
         Debug.Log("Clicou em carregar");
     }
